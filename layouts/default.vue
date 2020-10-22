@@ -1,16 +1,29 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <nuxt/>
+    <nuxt />
   </div>
 </template>
 
 
 <script>
-import navbar from '~/components/NavBar';
+import navbar from "~/components/NavBar";
 export default {
-  components:{
-    navbar
-  }
-}
+  head() {
+    return {
+      titleTemplate: "%s - Real World Events",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "Where you can find all the events taking place in your neighborhood",
+        },
+      ],
+    };
+  },
+  components: {
+    navbar,
+  },
+};
 </script>
