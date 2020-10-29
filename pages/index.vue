@@ -12,6 +12,7 @@
 
 <script>
 import EventCard from "../components/EventCard";
+import { mapState } from "vuex";
 export default {
   head() {
     // <-- property used by vue-meta to add header tags
@@ -23,18 +24,20 @@ export default {
     EventCard,
   },
 
-  async asyncData({ $axios, error }) {
+  async fetch({ store, error }) {
     try {
-      const { data } = await $axios.get("http://localhost:8000/events");
-      return {
-        events: data,
-      };
+      await store.dispatch("events/fetchEvents");
     } catch (e) {
       error({
         statusCode: 503,
         message: "Unable to fetch events events at this time",
       });
     }
+  },
+  computed: {
+    ...mapState({
+      events: (store) => store.events.events,
+    }),
   },
 };
 </script>
